@@ -20,12 +20,13 @@ export default function App() {
         
     };
 
-    const resetFeedback = () => {
+    const resetFeedback = () => { 
         setClicks({
             good: 0,
             neutral: 0,
             bad: 0,
         });
+        localStorage.removeItem('feedback-stats');
     };
 
    useEffect(() => {
@@ -43,15 +44,14 @@ export default function App() {
       onResetFeedback={resetFeedback}
       showReset={totalFeedback > 0}
       />
-      <Notification hideNotification={totalFeedback === 0}/>
-        <Feedback 
+      {totalFeedback === 0 && <Notification />}
+      {totalFeedback > 0 && <Feedback 
         good={clicks.good}
         neutral={clicks.neutral}
         bad={clicks.bad}
         total={totalFeedback}
         positive={positiveFeedback}
-        showFeedback={totalFeedback > 0}
-        />
+        /> }    
     </div>
  )
 }
